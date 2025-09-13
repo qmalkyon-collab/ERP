@@ -32,6 +32,17 @@ def on_startup():
 def health():
     return {"status": "ok"}
 
+from fastapi.middleware.cors import CORSMiddleware
+
+# ... κάτω από app = FastAPI(...)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],      # για demo — σε production βάλε το domain σου
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(auth.router)
 app.include_router(products.router)
 app.include_router(customers.router)
